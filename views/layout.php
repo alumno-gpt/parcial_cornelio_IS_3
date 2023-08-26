@@ -34,7 +34,19 @@
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
+                                <a class="dropdown-item nav-link text-white " href="/parcial_cornelio_IS_3/usuarios"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Usuarios</a>
+                            </li>
+                        
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Roles</a>
+                            </li>
+                        
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>graficas rol/usuario</a>
+                            </li>
+                        
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>graficas usuario/estado</a>
                             </li>
                         
                     
@@ -64,7 +76,7 @@
         <div class="row justify-content-center text-center">
             <div class="col-12">
                 <p style="font-size:xx-small; font-weight: bold;">
-                        Comando de Informática y Tecnología, <?= date('Y') ?> &copy;
+                        Empresa DEVJOBS, <?= date('Y') ?> &copy;
                 </p>
             </div>
         </div>
