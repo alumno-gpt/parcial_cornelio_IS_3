@@ -2,14 +2,14 @@ import { Dropdown } from "bootstrap";
 import Swal from "sweetalert2";
 import Datatable from "datatables.net-bs5";
 import { lenguaje  } from "../lenguaje";
-// import { validarFormulario, Toast, confirmacion } from "../funciones";
+import { validarFormulario, Toast, confirmacion } from "../funciones";
 
 const formulario = document.querySelector('form')
 const btnBuscar = document.getElementById('btnBuscar');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnCancelar = document.getElementById('btnCancelar');
-//const divTabla = document.getElementById('divTabla');
+
 
 btnModificar.disabled = true
 btnModificar.parentElement.style.display = 'none'
@@ -18,7 +18,7 @@ btnCancelar.parentElement.style.display = 'none'
 
 
 let contador = 1;
-const datatable = new Datatable('#tablaUsuarios', {
+const datatable = new Datatable('#tablaRoles', {
     language : lenguaje,
     data : null,
     columns: [
@@ -29,34 +29,18 @@ const datatable = new Datatable('#tablaUsuarios', {
         },
         {
             title : 'NOMBRE',
-            data: 'usu_nombre'
-        },
-        {
-            title : 'CONTRASEÑA',
-            data: 'usu_password'
-        },
-        {
-            title : 'CATALOGO',
-            data: 'usu_catalogo',
-        },
-        {
-            title : 'ROL',
-            data: 'rol_usu',
-        },
-        {
-            title : 'ESTADO',
-            data: 'usu_estado',
+            data: 'rol_nombre'
         },
         {
             title : 'MODIFICAR',
-            data: 'usu_id',
+            data: 'rol_id',
             searchable : false,
             orderable : false,
-            render : (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-nombre='${row["usu_nombre"]}' data-catalogo='${row["usu_catalogo"]} data-rol='${row["rol_usu"]}'>Modificar</button>`
+            render : (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-nombre='${row["rol_nombre"]}'>Modificar</button>`
         },
         {
             title : 'ELIMINAR',
-            data: 'usu_id',
+            data: 'rol_id',
             searchable : false,
             orderable : false,
             render : (data, type, row, meta) => `<button class="btn btn-danger" data-id='${data}' >Eliminar</button>`
@@ -67,10 +51,8 @@ const datatable = new Datatable('#tablaUsuarios', {
 
 const buscar = async () => {
 
-    let usu_nombre = formulario.usu_nombre.value;
-    let usu_catalogo = formulario.usu_catalogo.value;
-    let rol_usu = formulario.rol_usu.value;
-    const url = `/parcial_cornelio_IS_3/API/usuarios/buscar`;
+    let rol_nombre = formulario.rol_nombre.value;
+    const url = `/parcial_cornelio_IS_3/API/roles/buscar`;
     
     const config = {
         method : 'GET'
@@ -99,7 +81,7 @@ const buscar = async () => {
 }
 const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, ['usu_id'])) {
+    if (!validarFormulario(formulario, ['rol_id'])) {
         Toast.fire({
             icon: 'info',
             text: 'Debe llenar todos los datos'
@@ -108,8 +90,8 @@ const guardar = async (evento) => {
     }
 
     const body = new FormData(formulario);
-    body.delete('usu_id');
-    const url = '/parcial_cornelio_IS_3/API/usuarios/guardar';
+    body.delete('rol_id');
+    const url = '/parcial_cornelio_IS_3/API/roles/guardar';
     const headers = new Headers();
     headers.append("X-Requested-With", "fetch");
     const config = {
@@ -156,31 +138,24 @@ const traeDatos = (e) => {
     const button = e.target;
     const id = button.dataset.id
     const nombre = button.dataset.nombre
-    const catalogo = button.dataset.catalogo
-    const rol = button.dataset.rol
 
     const dataset = {
         id, 
         nombre, 
-        catalogo,
-        rol
 };
 
 colocarDatos(dataset);
 
 const body = new FormData(formulario);
-body.append('usu_id', id );
-body.append('usu_nombre', nombre);
-body.append('usu_catalogo', catalogo );
-body.append('rol_usu', rol );
+body.append('rol_id', id );
+body.append('rol_nombre', nombre);
+
 
 };
 
 const colocarDatos = (dataset) => {
-    formulario.usu_nombre.value = dataset.nombre;
-    formulario.usu_catalogo.value = dataset.catalogo;
-    formulario.rol_usu.value = dataset.rol;
-    formulario.usu_id.value = dataset.id;
+    formulario.rol_nombre.value = dataset.nombre;
+    formulario.rol_id.value = dataset.id;
     
     btnGuardar.disabled = true
     btnGuardar.parentElement.style.display = 'none'
@@ -190,7 +165,7 @@ const colocarDatos = (dataset) => {
     btnModificar.parentElement.style.display = ''
     btnCancelar.disabled = false
     btnCancelar.parentElement.style.display = ''
-    //divTabla.style.display = 'none'
+
     
     
 }
@@ -205,14 +180,14 @@ const modificar = async () => {
     }
 
     const body = new FormData(formulario)
-    const url = '/parcial_cornelio_IS_3/API/usuarios/modificar';
+    const url = '/parcial_cornelio_IS_3/API/roles/modificar';
     const config = {
         method : 'POST',
         body
     }
 
     try {
-        // fetch(url, config).then( (respuesta) => respuesta.json() ).then(d => data = d)
+      
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
         
@@ -251,8 +226,8 @@ const eliminar = async (e) => {
     // console.log(id);
     if (await confirmacion('warning', 'Desea elminar este registro?')) {
         const body = new FormData()
-        body.append('usu_id', id)
-        const url = '/parcial_cornelio_IS_3/API/usuarios/eliminar';
+        body.append('rol_id', id)
+        const url = '/parcial_cornelio_IS_3/API/roles/eliminar';
         const headers = new Headers();
         headers.append("X-Requested-With","fetch");
         const config = {
@@ -313,7 +288,6 @@ const cancelarAccion = () => {
     btnModificar.parentElement.style.display = 'none'
     btnCancelar.disabled = true
     btnCancelar.parentElement.style.display = 'none'
-    //divTabla.style.display = ''
 }
 
 

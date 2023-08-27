@@ -10,6 +10,12 @@
         </div>
         <div class="row mb-3">
             <div class="col">
+                <label for="usu_password">Ingrese contraseña para el usuario</label>
+                <input type="password" name="usu_password" id="usu_password" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
                 <label for="usu_catalogo">Ingrese catalogo del usuario</label>
                 <input type="text" name="usu_catalogo" id="usu_catalogo" class="form-control">
             </div>
