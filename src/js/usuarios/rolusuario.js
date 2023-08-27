@@ -1,18 +1,18 @@
 import Chart from "chart.js/auto";
 import { Toast } from "../funciones";
 
-const canvas = document.getElementById('chartVentas')
+const canvas = document.getElementById('chartRoles')
 const btnActualizar = document.getElementById('btnActualizar')
 const context = canvas.getContext('2d');
 
 
-const chartVentas = new Chart(context, {
+const chartRoles = new Chart(context, {
     type : 'pie',
     data : {
         labels : [],
         datasets : [
             {
-                label : 'Ventas',
+                label : 'Uusarios por roles',
                 data : [],
                 backgroundColor : []
             },
@@ -24,7 +24,7 @@ const chartVentas = new Chart(context, {
 })
 
 const getEstadisticas = async () => {
-    const url = `/datatable/API/productos/estadistica`;
+    const url = `/parcial_cornelio_IS_3/API/usuarios/rolusuario`;
     const config = {
         method : 'GET'
     }
@@ -33,18 +33,18 @@ const getEstadisticas = async () => {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
 
-        chartVentas.data.labels = [];
-        chartVentas.data.datasets[0].data = [];
-        chartVentas.data.datasets[0].backgroundColor = []
+        chartRoles.data.labels = [];
+        chartRoles.data.datasets[0].data = [];
+        chartRoles.data.datasets[0].backgroundColor = []
 
 
 
         if(data){
 
             data.forEach( registro => {
-                chartVentas.data.labels.push(registro.producto)
-                chartVentas.data.datasets[0].data.push(registro.cantidad)
-                chartVentas.data.datasets[0].backgroundColor.push(getRandomColor())
+                chartRoles.data.labels.push(registro.usuario)
+                chartRoles.data.datasets[0].data.push(registro.rol)
+                chartRoles.data.datasets[0].backgroundColor.push(getRandomColor())
             });
 
         }else{
@@ -54,7 +54,7 @@ const getEstadisticas = async () => {
             })
         }
         
-        chartVentas.update();
+        chartRoles.update();
        
     } catch (error) {
         console.log(error);
