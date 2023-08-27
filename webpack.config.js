@@ -9,6 +9,9 @@ module.exports = {
     'js/usuarios/index' : './src/js/usuarios/index.js',
     'js/usuarios/rolusuario' : './src/js/usuarios/rolusuario.js',
     'js/usuarios/usuarioestado' : './src/js/usuarios/usuarioestado.js',
+
+    
+    'js/usuarios/administraciones' : './src/js/usuarios/administraciones.js',
     
     
     'js/roles/index' : './src/js/roles/index.js',
