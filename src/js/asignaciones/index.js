@@ -66,7 +66,6 @@ const datatable = new Datatable('#tablaAsignaciones', {
             orderable : false,
             render : (data, type, row, meta) => row['usu_estado'].trim()==='A'? `<button class="btn btn-info" data-id='${data}' >DESACTIVAR</button>`: ''
         },
-        
     ]
 });
 
@@ -232,97 +231,99 @@ const modificar = async () => {
 
 const activar = async (e) => {
     const button = e.target;
-    const id = button.dataset.id;
+    const id = button.dataset.id
     
-    if (await confirmacion('warning', '¿Desea activar este usuario?')) {
-        const body = new FormData();
-        body.append('usu_id', id);
+    console.log(id)
+    if(await confirmacion('warning','¿Desea activar este usuario?')){
+        const body = new FormData()
+        body.append('usu_id', id)
         const url = '/examen_parcial/API/permisos/activar';
         const headers = new Headers();
-        headers.append("X-Requested-With", "fetch");
+        headers.append("X-Requested-With","fetch");
         const config = {
-            method: 'POST',
+            method : 'POST',
             body
-        };
+        }
         try {
-            const respuesta = await fetch(url, config);    
+            
+            const respuesta = await fetch(url, config)    
             const data = await respuesta.json();
-            const { codigo, mensaje } = data;
-
-            let icon = 'info';
+            const {codigo, mensaje} = data;
+    
+            let icon = 'info'
             switch (codigo) {
                 case 1:
-                    icon = 'success';
+                    icon = 'success'
                     buscar();
                     break;
             
                 case 0:
-                    icon = 'error';
-                    console.log(mensaje);
+                    icon = 'error'
+                    console.log(mensaje)
                     break;
             
                 default:
                     break;
             }
-
+    
             Toast.fire({
                 icon,
                 text: mensaje
-            });
-
+            })
+    
         } catch (error) {
             console.log(error);
         }
     }
-};
+}
 
 const desactivar = async (e) => {
     const button = e.target;
-    const id = button.dataset.id;
-
-    if (await confirmacion('warning', '¿Desea desactivar este usuario?')) {
-        const body = new FormData();
-        body.append('usu_id', id);
+    const id = button.dataset.id
+    
+    console.log(id)
+    if(await confirmacion('warning','¿Desea desactivar este usuario?')){
+        const body = new FormData()
+        body.append('usu_id', id)
         const url = '/examen_parcial/API/permisos/desactivar';
         const headers = new Headers();
-        headers.append("X-Requested-With", "fetch");
+        headers.append("X-Requested-With","fetch");
         const config = {
-            method: 'POST',
+            method : 'POST',
             body
-        };
+        }
         try {
-            const respuesta = await fetch(url, config);    
+            
+            const respuesta = await fetch(url, config)    
             const data = await respuesta.json();
-            const { codigo, mensaje } = data;
-
-            let icon = 'info';
+            const {codigo, mensaje} = data;
+    
+            let icon = 'info'
             switch (codigo) {
                 case 1:
-                    icon = 'success';
+                    icon = 'success'
                     buscar();
                     break;
             
                 case 0:
-                    icon = 'error';
-                    console.log(mensaje);
+                    icon = 'error'
+                    console.log(mensaje)
                     break;
             
                 default:
                     break;
             }
-
+    
             Toast.fire({
                 icon,
                 text: mensaje
-            });
-
+            })
+    
         } catch (error) {
             console.log(error);
         }
     }
-};
-
-
+}
 
 const cancelarAccion = () => {
     btnGuardar.disabled = false
@@ -347,5 +348,3 @@ btnCancelar.addEventListener('click', cancelarAccion)
 btnModificar.addEventListener('click', modificar)
 datatable.on('click','.btn-warning', traeDatos )
 datatable.on('click','.btn-danger', eliminar )
-datatable.on('click','.btn-success', activar);
-datatable.on('click','.btn-info', desactivar);
