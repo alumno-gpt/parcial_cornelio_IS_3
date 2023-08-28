@@ -8,6 +8,7 @@ use Controllers\UsuarioController;
 use Controllers\RolController;
 use Controllers\AdministracionController;
 use Controllers\AsignacionController;
+use Controllers\GraficoController;
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
 
@@ -39,10 +40,12 @@ $router->post('/API/asignaciones/desactivar', [AsignacionController::class, 'des
 
 
 
-//asignacion de roles
+//graficos
 
+$router->get('/graficos', [GraficoController::class,'index']);
+$router->get('/graficos/usuarioestado', [GraficoController::class,'estado']);
+$router->get('/API/graficos/data', [GraficoController::class,'getData']);
 
-$router->get('/API/usuarios/rolestado', [GraficoController::class,'rol']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

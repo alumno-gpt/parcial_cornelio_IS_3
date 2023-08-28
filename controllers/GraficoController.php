@@ -2,36 +2,52 @@
 
 namespace Controllers;
 use Exception;
-use Model\Grafico;
+use Model\Usuario;
 use MVC\Router;
 
-class GraficoController{
-    public static function estado(Router $router) {
-        $router->render('usuarios/usuarioestado', []);
-
+class GraficoController {
+    public static function estado(Router $router) 
+    {
+        $router->render('graficos/usuarioestado', []);
     }
-    public static function rol(Router $router) {
-        $router->render('usuarios/rolusuario', []);
 
+    public static function index(Router $router) 
+    {
+        $router->render('graficos/index', []);
     }
-    // public static function detalleVentasAPI() {
 
-    //     $sql = "SELECT producto_nombre as producto, sum (detalle_cantidad) as cantidad  
-    //     from detalle_ventas inner join ventas on detalle_venta = venta_id inner join productos on detalle_producto = producto_id 
-    //     where detalle_situacion = 1  group by producto_nombre order by producto_nombre";
+    public static function getData(Router $router) 
+    {
 
-    //     try {
+        try {
 
-    //         $productos = Detalle::fetchArray($sql);
+            if($_GET['tipo'] == 1){
 
-    //         echo json_encode($productos);
-    //     } catch (Exception $e) {
-    //         echo json_encode([
-    //             'detalle' => $e->getMessage(),
-    //             'mensaje' => 'Ocurrió un error',
-    //             'codigo' => 0
-    //         ]);
-    //     }
-    // }
+                $sql = "SELECT usu_estado AS estado, COUNT(*) AS cantidad_usuarios
+                    FROM usuarios
+                    WHERE usu_situacion = 1
+                    GROUP BY usu_estado
+                    ORDER BY usu_estado";
+            }elseif($_GET['tipo'] == 2){
 
+                $sql = "SELECT r.rol_nombre AS rol, COUNT(ar.usuario) AS cantidad_usuarios
+                FROM roles r
+                LEFT JOIN asignacion_roles ar ON r.rol_id = ar.rol
+                WHERE r.rol_situacion = 1
+                GROUP BY r.rol_id, r.rol_nombre
+                ORDER BY r.rol_nombre";
+            }
+
+            $resultados = Usuario::fetchArray($sql);
+
+            echo json_encode($resultados);
+
+        } catch (Exception $e) {
+            echo json_encode([
+                'detalle' => $e->getMessage(),
+                'mensaje' => 'Ocurrió un error',
+                'codigo' => 0
+            ]);
+        }
+    }
 }

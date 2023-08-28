@@ -45,11 +45,11 @@
                             </li>
                         
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/parcial_cornelio_IS_3/usuarios/rolusuario"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>graficas rol/usuario</a>
+                                <a class="dropdown-item nav-link text-white " href="/parcial_cornelio_IS_3/graficos"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>graficas rol/usuario</a>
                             </li>
                         
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/parcial_cornelio_IS_3/usuarios/usuarioestado"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>graficas usuario/estado</a>
+                                <a class="dropdown-item nav-link text-white " href="/parcial_cornelio_IS_3/graficos/usuarioestado"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>graficas usuario/estado</a>
                             </li>
                         
                     

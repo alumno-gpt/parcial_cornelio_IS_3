@@ -7,11 +7,9 @@ module.exports = {
     'js/app' : './src/js/app.js',
     'js/inicio' : './src/js/inicio.js',
     'js/usuarios/index' : './src/js/usuarios/index.js',
-    'js/usuarios/rolusuario' : './src/js/usuarios/rolusuario.js',
-    'js/usuarios/usuarioestado' : './src/js/usuarios/usuarioestado.js',
+    'js/graficos/index' : './src/js/graficos/index.js',
+    'js/graficos/usuarioestado' : './src/js/graficos/usuarioestado.js',
     'js/asignaciones/index' : './src/js/asignaciones/index.js',
-
-    
     'js/roles/index' : './src/js/roles/index.js',
   },
   output: {
