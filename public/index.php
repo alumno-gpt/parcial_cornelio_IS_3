@@ -7,6 +7,7 @@ use Controllers\AppController;
 use Controllers\UsuarioController;
 use Controllers\RolController;
 use Controllers\AdministracionController;
+use Controllers\AsignacionController;
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
 
@@ -24,12 +25,21 @@ $router->post('/API/roles/guardar', [RolController::class,'guardarApi']);
 $router->post('/API/roles/modificar', [RolController::class,'modificarApi']);
 $router->post('/API/roles/eliminar', [RolController::class,'eliminarApi']);
 
-//administracion
-$router->get('/usuarios/administrar', [AdministracionController::class,'userAdmin']);
-$router->get('/API/administraciones/buscar', [AdministracionController::class,'buscarApi']);
-$router->post('/API/administraciones/guardar', [AdministracionController::class,'guardarApi']);
-$router->post('/API/administraciones/modificar', [AdministracionController::class,'modificarApi']);
-$router->post('/API/administraciones/eliminar', [AdministracionController::class,'eliminarApi']);
+
+//asignacion de roles
+$router->get('/asignaciones', [AsignacionController::class, 'index']);
+$router->post('/API/asignaciones/guardar', [AsignacionController::class, 'guardarAPI']);
+$router->post('/API/asignaciones/modificar', [AsignacionController::class, 'modificarAPI']);
+$router->post('/API/asignaciones/eliminar', [AsignacionController::class, 'eliminarAPI']);
+$router->get('/API/asignaciones/buscar', [AsignacionController::class, 'buscarAPI']);
+$router->post('/API/asignaciones/activar', [AsignacionController::class, 'activarAPI']);
+$router->post('/API/asignaciones/desactivar', [AsignacionController::class, 'desactivarAPI']);
+
+
+
+
+
+//asignacion de roles
 
 
 $router->get('/API/usuarios/rolestado', [GraficoController::class,'rol']);
