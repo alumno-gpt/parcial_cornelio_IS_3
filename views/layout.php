@@ -37,7 +37,7 @@
                                 <a class="dropdown-item nav-link text-white " href="/parcial_cornelio_IS_3/usuarios"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Usuarios</a>
                             </li>
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/parcial_cornelio_IS_3/usuarios/administraciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Administracion de usuarios</a>
+                                <a class="dropdown-item nav-link text-white " href="/parcial_cornelio_IS_3/usuarios/administrar"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Administracion de usuarios</a>
                             </li>
                         
                             <li>

@@ -1,6 +1,6 @@
 <h1 class="text-center">ADMINISTRACION DE USUARIOS</h1>
 <div class="row justify-content-center mb-5">
-    <form class="col-lg-8 border bg-light p-3" id="formularioAdministracion">
+    <form class="col-lg-10 border bg-light p-3" id="formularioAdministracion">
         <input type="hidden" name="usu_id" id="usu_id">
         <div class="row mb-3">
             <div class="col">
@@ -54,11 +54,12 @@
 </div>
 
 <div class="row justify-content-center">
-    <h1 class="text-center">LISTADO DE USUARIOS</h1>
-    <div class="col table-responsive">
-       
-        <table id="tablaAdministracion" class="table table-bordered table-hover">
-        </table>
+    <div class="card col-lg-10 border bg-light p-3">
+        <h1 class="text-center">LISTADO DE USUARIOS</h1>
+        <div class="col table-responsive">
+            <table id="tablaAdministracion" class="table table-bordered table-hover">
+            </table>
+        </div>
     </div>
 </div>
 

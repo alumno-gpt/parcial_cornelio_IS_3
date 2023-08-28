@@ -4,30 +4,52 @@ namespace Controllers;
 use Exception;
 use Model\Rol;
 use MVC\Router;
+use Classes\Validator;
 
 class RolController {
     public static function rolesfun(Router $router){
-        $router->render('roles/index', []);
+        $rol = rol::all();
+        $router->render('roles/index', [$rol]);
     }
 
-    public static function guardarApi(){
-     
-        try {
-            $rol = new Rol($_POST);
-            $resultado = $rol->crear();
+    public static function guardarAPI() 
+    {
+        try 
+        {
+            $rules = [
+                'rol_nombre' => [
+                    [Validator::class, 'validateRequired', "El campo Rol es obligatorio.\n\n"]
+                ]
+            ];
+            
+            $errors = Validator::validate($_POST, $rules);
+            
+            if (empty($errors)) {
+                
+                $rol = new Rol($_POST);
 
-            if ($resultado['resultado'] == 1) {
-                echo json_encode([
-                    'mensaje' => 'Registro guardado correctamente',
-                    'codigo' => 1
-                ]);
+                $resultado = $rol->guardar();
+
+                if ($resultado['resultado'] == 1) {
+                    echo json_encode([
+                        'mensaje' => 'Registro guardado correctamente',
+                        'codigo' => 1
+                    ]);
+                } else {
+                    echo json_encode([
+                        'mensaje' => 'Ocurrió un error',
+                        'codigo' => 0
+                    ]);
+                }
+
             } else {
+                // Los datos no son válidos, mostrar errores
                 echo json_encode([
-                    'mensaje' => 'Ocurrió un error',
+                    'mensaje' => $errors,
                     'codigo' => 0
                 ]);
             }
-            // echo json_encode($resultado);
+            
         } catch (Exception $e) {
             echo json_encode([
                 'detalle' => $e->getMessage(),
@@ -36,7 +58,6 @@ class RolController {
             ]);
         }
     }
-
 
     public static function buscarApi(){
         $rol_nombre = $_GET['rol_nombre'];
@@ -66,7 +87,7 @@ class RolController {
         try {
             $rol = new Rol($_POST);
 
-            $resultado = $rol -> actualizar();
+            $resultado = $rol->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -93,12 +114,10 @@ class RolController {
     public static function eliminarApi(){
      
         try {
-            $rol_id = $_POST['rol_id'];
-            $rol=  Rol::find($rol_id);
-            $rol ->rol_situacion = 0;
-            $resultado = $rol ->actualizar();
+            $rol = new Rol($_POST);
+            $resultado = $rol->eliminarRol();
 
-            if ($resultado['resultado'] == 1) {
+            if ($resultado) {
                 echo json_encode([
                     'mensaje' => 'Registro eliminado correctamente',
                     'codigo' => 1

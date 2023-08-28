@@ -34,6 +34,12 @@ class Usuario extends ActiveRecord{
         }
         return false;
     }
-}
 
+
+    public static function getUsers()
+    {
+        $respuesta = self::consultarSQL("SELECT USU_NOMBRE,USU_CATALOGO,USU_ESTADO,USU_SITUACION FROM usuarios");
+        return $respuesta;
+    }
+}
 

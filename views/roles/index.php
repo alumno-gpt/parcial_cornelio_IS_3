@@ -10,7 +10,7 @@
         </div>
         <div class="row mb-3">
             <div class="col">
-                <button type="submit" form="formularioUsuarios" id="btnGuardar" data-saludo="hola" data-saludo2="hola2" class="btn btn-primary w-100">Guardar</button>
+                <button type="submit" id="btnGuardar" class="btn btn-primary w-100">Guardar</button>
             </div>
             <div class="col">
                 <button type="button" id="btnModificar" class="btn btn-warning w-100">Modificar</button>
@@ -26,11 +26,12 @@
 </div>
 
 <div class="row justify-content-center">
-    <h1 class="text-center">LISTADO DE ROLES</h1>
-    <div class="col table-responsive">
-       
-        <table id="tablaRoles" class="table table-bordered table-hover">
-        </table>
+    <div class="card col-lg-10 border bg-light p-3">
+        <h1 class="text-center">LISTADO DE ROLES</h1>
+        <div class="col table-responsive">
+            <table id="tablaRoles" class="table table-bordered table-hover">
+            </table>
+        </div>
     </div>
 </div>
 

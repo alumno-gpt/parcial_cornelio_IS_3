@@ -18,6 +18,15 @@ class Rol extends ActiveRecord{
         $this->rol_nombre = $args['rol_nombre'] ?? '';
         $this->rol_situacion = $args['rol_situacion'] ?? '1';
     }
+
+    public function eliminarRol(){
+        $id = $this->rol_id;
+        $query = "UPDATE roles SET ROL_SITUACION = 0 WHERE ROL_ID = $id";
+        if(self::$db->query($query)){
+            return true;
+        }
+        return false;
+    }
 }
 
 

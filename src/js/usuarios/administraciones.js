@@ -1,5 +1,5 @@
-// import { Dropdown } from "bootstrap";
-// import Swal from "sweetalert2";
+import { Dropdown } from "bootstrap";
+import Swal from "sweetalert2";
 import Datatable from "datatables.net-bs5";
 import { lenguaje  } from "../lenguaje";
 import { validarFormulario, Toast, confirmacion } from "../funciones";
@@ -36,26 +36,39 @@ const datatable = new Datatable('#tablaAdministracion', {
             data: 'usu_catalogo',
         },
         {
-            title : 'CONTRASEÑA',
-            data: 'usu_password'
-        },
-        {
             title : 'ESTADO',
             data: 'usu_estado',
+            render: (data, type, row, meta) => {
+                // Si estás mostrando los datos en la vista de tabla, muestra el estado correspondiente
+                if (type === 'display') {
+                    switch (data) {
+                        case 'P':
+                            return 'Pendiente';
+                        case 'A':
+                            return 'Activo';
+                        case 'I':
+                            return 'Inactivo';
+                        default:
+                            return data;
+                    }
+                }
+                // En otros casos, devuelve el valor original para otros procesos
+                return data;
+            }
         },
         {
             title : 'CAMBIAR PASSWORD',
             data: 'usu_password',
             searchable : false,
             orderable : false,
-            render : (data, type, row, meta) => `<button class="btn btn-danger" data-id='${data}' >Cambiar password0]</button>`
+            render : (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' >Cambiar password</button>`
         },
         {
             title : 'ASINGAR ROL',
             data: 'rol_id',
             searchable : false,
             orderable : false,
-            render : (data, type, row, meta) => `<button class="btn btn-danger" data-id='${data}' >asingnar rol</button>`
+            render : (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' >asingnar rol</button>`
         },
         {
             title : 'MODIFICAR',
@@ -76,7 +89,10 @@ const datatable = new Datatable('#tablaAdministracion', {
 })
 
 const buscar = async () => {
-
+    let usu_nombre = formulario.usu_nombre.value;
+    let usu_catalogo = formulario.usu_catalogo.value;
+    let usu_password = formulario.usu_password.value;
+    let usu_estado = formulario.usu_estado.value;
     const url = `/parcial_cornelio_IS_3/API/administraciones/buscar`;
     
     const config = {
@@ -88,18 +104,18 @@ const buscar = async () => {
         const data = await respuesta.json();
 
         console.log(data);
-        // datatable.clear().draw()
+        datatable.clear().draw()
 
-        // if(data){
-        //     contador = 1;
-        //     datatable.rows.add(data).draw();
+        if(data){
+            contador = 1;
+            datatable.rows.add(data).draw();
             
-        // }else{
-        //     Toast.fire({
-        //         title : 'No se encontraron registros',
-        //         icon : 'info'
-        //     })
-        // }
+        }else{
+            Toast.fire({
+                title : 'No se encontraron registros',
+                icon : 'info'
+            })
+        }
        
     } catch (error) {
         console.log(error);
@@ -118,7 +134,7 @@ const guardar = async (evento) => {
 
     const body = new FormData(formulario);
     body.delete('usu_id');
-    const url = '/parcial_cornelio_IS_3/API/usuarios/guardar';
+    const url = '/parcial_cornelio_IS_3/API/administraciones/guardar';
     const headers = new Headers();
     headers.append("X-Requested-With", "fetch");
     const config = {
@@ -166,13 +182,13 @@ const traeDatos = (e) => {
     const id = button.dataset.id
     const nombre = button.dataset.nombre
     const catalogo = button.dataset.catalogo
-    const rol = button.dataset.rol
+    const password = button.dataset.password
 
     const dataset = {
         id, 
         nombre, 
         catalogo,
-        rol
+        password
 };
 
 colocarDatos(dataset);
@@ -181,14 +197,14 @@ const body = new FormData(formulario);
 body.append('usu_id', id );
 body.append('usu_nombre', nombre);
 body.append('usu_catalogo', catalogo );
-body.append('rol_usu', rol );
+body.append('usu_password', password );
 
 };
 
 const colocarDatos = (dataset) => {
     formulario.usu_nombre.value = dataset.nombre;
     formulario.usu_catalogo.value = dataset.catalogo;
-    formulario.rol_usu.value = dataset.rol;
+    formulario.usu_password.value = dataset.password;
     formulario.usu_id.value = dataset.id;
     
     btnGuardar.disabled = true
@@ -214,7 +230,7 @@ const modificar = async () => {
     }
 
     const body = new FormData(formulario)
-    const url = '/parcial_cornelio_IS_3/API/usuarios/modificar';
+    const url = '/parcial_cornelio_IS_3/API/administraciones/modificar';
     const config = {
         method : 'POST',
         body
@@ -261,7 +277,7 @@ const eliminar = async (e) => {
     if (await confirmacion('warning', 'Desea elminar este registro?')) {
         const body = new FormData()
         body.append('usu_id', id)
-        const url = '/parcial_cornelio_IS_3/API/usuarios/eliminar';
+        const url = '/parcial_cornelio_IS_3/API/administraciones/eliminar';
         const headers = new Headers();
         headers.append("X-Requested-With","fetch");
         const config = {
